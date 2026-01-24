@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 
-export const SearchBar = ({ onSearch }) => {
+export const Searchbar = ({ onSearch }) => {
   const [query, setQuery] = useState("");
 
   const handleSubmit = (e) => {
