@@ -1,6 +1,6 @@
 import React from 'react'
 import { IoMdMenu,IoIosNotifications,IoMdAddCircle } from "react-icons/io";
-import { SearchBar } from "../SearchBar/Searchbar.jsx";
+import { Searchbar } from "../SearchBar/Searchbar.jsx";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ const Navbar = ({ setSearchQuery, setIsMenuOpen, isMenuOpen }) => {
         </div>
 
         <div className="flex-1 flex justify-center px-2">
-          <SearchBar onSearch={(q) => setSearchQuery(q)}/>
+          <Searchbar onSearch={(q) => setSearchQuery(q)}/>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
