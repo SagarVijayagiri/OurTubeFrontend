@@ -1,0 +1,272 @@
+@import "tailwindcss";
+
+
+.main-wrapper{
+  width:100%;
+  height:100vh;
+  background-color: rgb(31,26,27);
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.form-wrapper{
+  width:50%;
+  height:80vh;
+  background-color:black;
+  border-radius: 10px;
+  box-shadow: 5px 5px 150x gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:25px;
+}
+.c-name{
+  
+  color:white;
+}
+.logo-image{
+  width:7%;
+}
+.wrapper-header{
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+.form-wrapper input{
+  width:80%;
+  padding: 10px;
+  border:none;
+  height : 50px;
+  border-radius:5px;
+}
+.form-wrapper button{
+  height:50px;
+  padding:10px;
+  border:none;
+  width:80%;
+  background-color: rgb(200,7,7);
+  color:white;
+  border-radius:5px;
+}
+.preview-image{
+  width:50px;
+  height:50px;
+  border-radius: 50%;
+}
+.link{
+  color:white;
+  text-decoration: none;
+  margin-top:10px;
+  font-size:14px;
+}
+.dashboard-container{
+  width:210vh;
+  height:180vh;
+  background-color: rgb(31,26,27);
+  display: flex;
+  color: white;
+}
+.side-nav{
+  width:20%;
+  background-color: rgb(13,12,12);
+  padding:10px;
+}
+.content-container{
+  width: 80%;
+  padding:10px;
+}
+.profile-container img{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  box-shadow: 5px 5px 15px rgb(123,121,121);
+  margin-top: 10px;
+}
+.profile-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.menu-container{
+  width:100%;
+  margin-top:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.menu-link{
+  color:white;
+  text-decoration: none;
+  padding: 10px;
+}
+.active-menu-link{
+  color:white;
+  text-decoration: none;
+  padding: 10px;
+  background-color: red;
+}
+.menu-link:hover{
+  background-color: red;
+}
+
+.upload-container{
+  width: 100%;
+  height:100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap:20px;
+}
+.upload-form{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width:90%;
+  justify-content: center;
+  box-shadow:5px 5px 10px rgb(178,175,175);
+  gap: 20px;
+}
+.upload-form input,textarea,select{
+  padding:10px;
+  height:50px;
+  border-radius:5px;
+  font-size: 15px;
+}
+.upload-form label{
+  font-size: 15px;
+}
+.upload-form button{
+  height:50px;
+  background-color: red;
+  color: white;
+  border: none;
+  curser:pointer;
+  font-size: 15px;
+}
+.thumbnail{
+  width:100px;
+}
+.videos-table{
+  width:100%;
+  border-collapse: collapse;
+}
+th,td{
+  text-align: left;
+  padding: 10px;
+}
+.videos-table img{
+  width:150px;
+  height: 80px;
+  border-radius:10px;
+}
+tr:hover{
+  background-color: #333;
+  cursor: pointer;
+}
+.videos-table button{
+  padding: 10px;
+  border-radius:10px;
+}
+.video-page{
+  width: 100%;
+  height: 150vh;
+  background-color: black;
+  display: flex;
+}
+.main-video{
+
+}
+.main-video video{
+  width: 70vh;
+}
+.logo-cont img{
+  width:8vh;
+  border-radius: 50%;
+  margin-top: 50px;
+}
+.blockfontmedium{
+  display: flex;
+  justify-content: left;
+}
+.header-cont{
+  height: 5vh;
+  background-color: grey;
+  padding: none;
+  margin: none;
+  margin-bottom: 20px;
+}
+.homeinput{
+  height:90%;
+  width: 50%;
+  border-radius:5vh;
+  justify-content: center;
+  align-items: center;
+}
+.videos-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding: 10px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overflow-y: hidden;
+  height: 50vh;
+  white-space: nowrap;
+  -webkit-overflow-scrolling:touch;
+}
+.videos-container::-webkit-scrollbar{
+  display:none;
+}
+
+.video-card {
+  min-width: 200px;
+  flex: 0 0 auto;
+  background: #000;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  min-height: 550px;
+
+}
+
+.video-card:hover {
+  transform: scale(1.03);
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.video-info {
+  padding: 10px;
+}
+
+.video-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color:white;
+}
+
+.video-meta {
+  font-size: 12px;
+  color: #777;
+}
