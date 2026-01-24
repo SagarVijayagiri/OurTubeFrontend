@@ -1,6 +1,6 @@
 import React from 'react'
 import { IoMdMenu,IoIosNotifications,IoMdAddCircle } from "react-icons/io";
-import { Searchbar } from "../SearchBar/Searchbar.jsx";
+import { Searchbar } from "../Searchbar/Searchbar.jsx";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 
