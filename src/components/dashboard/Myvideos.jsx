@@ -1,4 +1,4 @@
-import axios from 'axios'
+/*import axios from 'axios'
 import React,{useEffect,useState} from "react"
 import {useNavigate} from "react-router-dom"
 export const Myvideos=()=>{
@@ -101,3 +101,120 @@ export const Myvideos=()=>{
     </div>
     )
 }
+*/
+import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+export const Myvideos = () => {
+  // 1. Get the user once at the top
+  const rawUser = localStorage.getItem("user");
+  const user = rawUser ? JSON.parse(rawUser) : null;
+
+  const [videos, setvideos] = useState([]);
+  const navigate = useNavigate();
+
+  // 2. Early return if not logged in
+  if (!user) {
+    return (
+      <div className="w-full min-h-[calc(100vh-56px)] flex items-center justify-center">
+        Please login to view your videos.
+      </div>
+    );
+  }
+
+  useEffect(() => {
+    getownvideo();
+  }, []);
+
+  const getownvideo = () => {
+    // 3. Reuse the token from the user object we already parsed!
+    axios.get(`${import.meta.env.VITE_API_URL}/video/ownvideo`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`
+      }
+    })
+      .then(res => {
+        console.log(res.data);
+        setvideos(res.data.Videos);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const handlevideoclick = (id) => {
+    navigate(`/video/${id}`);
+    console.log(id);
+  };
+
+  const handleDelete = (id) => {
+    if (!window.confirm("Are you sure you want to delete this video?")) return;
+
+    // 4. Use the correct URL variable and the correct token
+    axios.delete(`${import.meta.env.VITE_API_URL}/video/${id}`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      }
+    })
+      .then(() => {
+        setvideos(videos.filter(v => v._id !== id));
+      })
+      .catch(err => console.error(err));
+  };
+
+  return (
+    <div className="myvideos-container">
+      <table className='videos-table'>
+        <thead>
+          <tr>
+            <th>Video</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>views</th>
+            <th>Like vs Dislike</th>
+            <th>Delete</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {videos.map(video => (
+            <tr 
+              key={video._id} 
+              onClick={() => handlevideoclick(video._id)} 
+              style={{ cursor: 'pointer' }}
+            >
+              <td><img src={video.thumbnailurl} alt="thumbnail" /></td>
+              <td>{video.title}</td>
+              <td>{video.createdAt}</td>
+              <td>{video.views}</td>
+              <td>{video.likes}/{video.dislike}</td>
+              <td>
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(video._id);
+                  }} 
+                  // 5. Fixed React style syntax (camelCase)
+                  style={{ backgroundColor: "red", color: "white" }}
+                >
+                  Delete
+                </button>
+              </td>
+              <td>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/update/${video._id}`);
+                  }}
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
