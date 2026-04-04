@@ -17,7 +17,7 @@ export const Myvideos=()=>{
 
 
 
-
+  const token = JSON.parse(localStorage.getItem('user'))?.token;
   const [videos,setvideos]=useState([])
   const navigate=useNavigate()
   useEffect(()=>{
@@ -26,7 +26,7 @@ export const Myvideos=()=>{
   const getownvideo=()=>{
     axios.get(`${import.meta.env.VITE_API_URL}/video/ownvideo`,{
       headers:{
-        Authorization:'Bearer ' +localStorage.getItem('token')
+        Authorization:`Bearer ${token}`
       }
     })
     .then(res=>{
