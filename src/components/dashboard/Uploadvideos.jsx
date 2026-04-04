@@ -20,28 +20,33 @@ export const Uploadvideos=()=>{
     setthumbnail(e.target.files[0])
     setimageurl(URL.createObjectURL(e.target.files[0]))
   }
-  const submithandler=(e)=>{
-    e.preventDefault();
-    setloading(true)
-    const formdata=new FormData()
-    formdata.append('title',title)
-    formdata.append('description',description)
-    formdata.append('category',category)
-    formdata.append('tags',tags)
-    formdata.append('video',video)
-    formdata.append('thumbnail',thumbnail)
-    
-    axios.post(`${import.meta.env.VITE_API_URL}/video/upload`,formdata,{
-      headers:{
-        Authorization:'Bearer ' +localStorage.getItem('token')
-      }
-    })
-    .then(res=>{
-      setloading(false)
-      console.log(res.data)
-      toast("video uploaded...")
-      navigate('/dashboard/myvideos')
-    })
+  const submithandler = (e) => {
+  e.preventDefault();
+  setloading(true);
+
+  const formdata = new FormData();
+  formdata.append('title', title);
+  formdata.append('description', description);
+  formdata.append('category', category);
+  formdata.append('tags', tags);
+  formdata.append('video', video);
+  formdata.append('thumbnail', thumbnail);
+
+  // 1. Safely extract the token from the 'user' string
+  const token = JSON.parse(localStorage.getItem('user'))?.token;
+
+  axios.post(`${import.meta.env.VITE_API_URL}/video/upload`, formdata, {
+    headers: {
+      // 2. Pass the correctly extracted token
+      Authorization: `Bearer ${token}`
+    }
+  })
+  .then(res => {
+    setloading(false);
+    console.log(res.data);
+    toast("video uploaded...");
+    navigate('/dashboard/myvideos');
+  })
     .catch(err=>{
       console.log(err)
       setloading(false)
