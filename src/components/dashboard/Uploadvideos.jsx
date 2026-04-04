@@ -63,7 +63,7 @@ export const Uploadvideos=()=>{
     </div>
     )
   }
-  return(
+  /*return(
     <div className='upload-container'>
       <h2>upload video</h2>
       <form onSubmit={submithandler} className="upload-form">
@@ -85,7 +85,83 @@ export const Uploadvideos=()=>{
         <button type="submit">{loading && <i className="fa-solid fa-circle-notch fa-spin"></i>}upload</button>
       </form>
     </div>
-    )
+    )*/
+  return (
+  <div className="upload-page-wrapper">
+    <div className="upload-card">
+      
+      <div className="upload-header">
+        <h2>PUBLISH YOUR CREATION</h2>
+        <p>Select and prepare your next masterpiece for the community.</p>
+      </div>
+
+      <form onSubmit={submithandler} className="upload-layout">
+        
+        {/* LEFT COLUMN: Media Uploads */}
+        <div className="media-column">
+          <div className="drag-drop-zone">
+            <i className="fa-solid fa-cloud-arrow-up upload-icon"></i>
+            <h3>DRAG & DROP YOUR VIDEO FILE</h3>
+            <p>OR CLICK TO BROWSE</p>
+            <span className="file-info">Supported formats: MP4, MOV, AVI. Max: 2GB.</span>
+            {/* The actual input is hidden over the whole box to make it clickable */}
+            <input onChange={videohandler} type="file" className="file-overlay" accept="video/*" />
+          </div>
+
+          <div className="thumbnail-zone">
+            <div className="thumb-text">
+              <label>THUMBNAIL</label>
+              <p>Upload a compelling image.</p>
+            </div>
+            <div className="thumb-input-container">
+              <input onChange={thumbnailhandler} type="file" className="thumb-input" accept="image/*" />
+              {imageurl && <img className="thumbnail-preview" alt="thumbnail" src={imageurl} />}
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN: Text Inputs */}
+        <div className="details-column">
+          <div className="form-group">
+            <label>FIELD: TITLE</label>
+            <input onChange={(e)=>{settitle(e.target.value)}} placeholder="Enter an engaging title" required />
+          </div>
+
+          <div className="form-group">
+            <label>FIELD: DESCRIPTION</label>
+            <textarea onChange={(e)=>{setdescription(e.target.value)}} placeholder="Tell viewers about your video..." rows="4" required></textarea>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group half-width">
+              <label>FIELD: CATEGORY</label>
+              <select onChange={(e)=>{setcategory(e.target.value)}}>
+                <option value='science'>Science</option>
+                <option value='technology'>Technology</option>
+                <option value='education'>Education</option>
+                <option value='motivation'>Motivation</option>
+                <option value='story'>Story</option>
+              </select>
+            </div>
+            
+            <div className="form-group half-width">
+              <label>FIELD: TAGS</label>
+              <input onChange={(e)=>{settags(e.target.value)}} placeholder="#Science #Education" />
+            </div>
+          </div>
+        </div>
+
+        {/* FULL WIDTH SUBMIT BUTTON */}
+        <div className="submit-container">
+          <button type="submit" className="submit-btn" disabled={loading}>
+            {loading ? <i className="fa-solid fa-circle-notch fa-spin"></i> : "BEGIN UPLOAD & PUBLISH"}
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+);
 }
 
 
