@@ -1,82 +1,130 @@
-import React from 'react'
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React from 'react';
+import { Link } from "react-router-dom";
 import { IoMdHome, IoMdVideocam } from "react-icons/io";
 import { FaUpload, FaMusic } from "react-icons/fa";
-import { IoLogOut, IoGameController,IoLogIn } from "react-icons/io5";
+import { IoLogOut, IoGameController, IoLogIn } from "react-icons/io5";
 import { MdLocalMovies, MdSportsBaseball } from "react-icons/md";
 import { toast } from 'react-toastify';
 
 const Sidebar = ({ isMenuOpen, setIsMenuOpen, isActive, handleLogout }) => {
   const rawUser = localStorage.getItem("user");
-    const user = rawUser ? JSON.parse(rawUser) : null;
+  const user = rawUser ? JSON.parse(rawUser) : null;
 
+  // Handling features that are yet to be added
+  const handleFutureFeature = (featureName) => {
+    toast.info(`${featureName} feature coming soon!`, {
+      theme: "dark",
+      autoClose: 2000,
+    });
+  };
 
-    {/* handling features that are yet to be added*/}
-    const handleMusicClick = () => {
-    toast("Music feature yet to be added!");
-    }
-    const handleMoviesClick = () => {
-    toast("Movies feature yet to be added!");
-    }
-    const handleSportsClick = () => {
-    toast("Sports feature yet to be added!");
-    }
-    const handleGamingClick = () => {
-    toast("Gaming feature yet to be added!");
-    }
   return (
-    <>
     <aside
-        className={`fixed top-14 left-0 z-50 h-[calc(100vh-3.5rem)] w-64 bg-black border-r border-neutral-800 transform transition-transform duration-300
-          ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0`}
-      >
-        <nav className="p-4 space-y-2 border-b border-neutral-800">
-          <Link to="/dashboard/home" className={`block px-3 py-2 rounded text-gray-300 ${isActive("/dashboard/home")}`}>
-            <IoMdHome className="inline mr-2 text-2xl text-gray-300" /> Home
-          </Link>
-          <Link to="/dashboard/myvideos" className={`block px-3 text-gray-300 py-2 rounded ${isActive("/dashboard/myvideos")}`}>
-            <IoMdVideocam className=" text-gray-300 inline mr-2 text-2xl" /> My Videos
-          </Link>
-          <Link to="/dashboard/uploadvideos" className={`block px-3 py-2 rounded text-gray-300 ${isActive("/dashboard/uploadvideos")}`}>
-            <FaUpload className="inline mr-2 text-2xl text-gray-300" /> Upload Videos
-          </Link>
-          {user ? (
-  <button
-    onClick={handleLogout}
-    className="text-gray-300 block w-full text-left px-3 py-2 rounded hover:bg-neutral-800"
-  >
-    <IoLogOut className="inline mr-2 text-2xl text-gray-300" /> Logout
-  </button>
-) : (
-  <Link
-    to="/login"
-    className={`block px-3 py-2 rounded text-gray-300 ${isActive("/login")}`}
-  >
-    <IoLogIn className="inline mr-2 text-2xl text-gray-300" />
-    Login
-  </Link>
-)}
+      // Adjusted top-16 and h-[calc(100vh-4rem)] to perfectly match the new Navbar height
+      className={`fixed top-16 left-0 z-40 h-[calc(100vh-4rem)] w-64 bg-[#0f0f13] border-r border-[#2a2a35] transform transition-transform duration-300 ease-in-out
+        ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
+        md:translate-x-0 flex flex-col`}
+    >
+      {/* Scrollable Container */}
+      <div className="flex-1 overflow-y-auto py-6 px-3 space-y-8 scrollbar-hide">
+        
+        {/* SECTION 1: MAIN MENU */}
+        <div>
+          <p className="px-4 text-[10px] font-bold text-[#5a5a65] uppercase tracking-wider mb-3">
+            Main Menu
+          </p>
+          <nav className="space-y-1.5">
+            <Link 
+              to="/dashboard/home" 
+              className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-colors hover:bg-[#22222a] hover:text-white ${isActive("/dashboard/home") || "text-[#8a8a93]"}`}
+            >
+              <IoMdHome className="mr-3 text-xl" /> 
+              Home
+            </Link>
+            
+            <Link 
+              to="/dashboard/myvideos" 
+              className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-colors hover:bg-[#22222a] hover:text-white ${isActive("/dashboard/myvideos") || "text-[#8a8a93]"}`}
+            >
+              <IoMdVideocam className="mr-3 text-xl" /> 
+              My Videos
+            </Link>
+            
+            <Link 
+              to="/dashboard/uploadvideos" 
+              className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-colors hover:bg-[#22222a] hover:text-white ${isActive("/dashboard/uploadvideos") || "text-[#8a8a93]"}`}
+            >
+              <FaUpload className="mr-3 text-xl" /> 
+              Upload Videos
+            </Link>
+          </nav>
+        </div>
 
-        </nav>
+        {/* SECTION 2: DISCOVER */}
+        <div>
+          <p className="px-4 text-[10px] font-bold text-[#5a5a65] uppercase tracking-wider mb-3">
+            Discover
+          </p>
+          <nav className="space-y-1.5">
+            <button 
+              className="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-[#8a8a93] hover:bg-[#22222a] hover:text-white transition-colors" 
+              onClick={() => handleFutureFeature("Music")}
+            >
+              <FaMusic className="mr-3 text-xl" /> 
+              Music
+            </button>
+            
+            {/* Fixed the onClick bug here (moved from icon to button) */}
+            <button 
+              className="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-[#8a8a93] hover:bg-[#22222a] hover:text-white transition-colors"
+              onClick={() => handleFutureFeature("Movies")}
+            >
+              <MdLocalMovies className="mr-3 text-xl" /> 
+              Movies
+            </button>
+            
+            <button 
+              className="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-[#8a8a93] hover:bg-[#22222a] hover:text-white transition-colors" 
+              onClick={() => handleFutureFeature("Sports")}
+            >
+              <MdSportsBaseball className="mr-3 text-xl" /> 
+              Sports
+            </button>
+            
+            <button 
+              className="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-[#8a8a93] hover:bg-[#22222a] hover:text-white transition-colors" 
+              onClick={() => handleFutureFeature("Gaming")}
+            >
+              <IoGameController className="mr-3 text-xl" /> 
+              Gaming
+            </button>
+          </nav>
+        </div>
 
-        <nav className="p-4 space-y-2">
-          <button className="text-gray-300 block w-full text-left px-3 py-2 rounded hover:bg-neutral-800" onClick={handleMusicClick} >
-            <FaMusic className="inline mr-2 text-2xl text-gray-300" /> Music
-          </button>
-          <button className="text-gray-300 block w-full text-left px-3 py-2 rounded hover:bg-neutral-800">
-            <MdLocalMovies className="inline mr-2 text-2xl text-gray-300" onClick={handleMoviesClick} /> Movies
-          </button>
-          <button className="text-gray-300 block w-full text-left px-3 py-2 rounded hover:bg-neutral-800" onClick={handleSportsClick}>
-            <MdSportsBaseball className="inline mr-2 text-2xl text-gray-300" /> Sports
-          </button>
-          <button className="text-gray-300 block w-full text-left px-3 py-2 rounded hover:bg-neutral-800" onClick={handleGamingClick}>
-            <IoGameController className="inline mr-2 text-2xl text-gray-300" /> Gaming
-          </button>
-        </nav>
-      </aside>
-    </>
-  )
-}
+      </div>
 
-export default Sidebar
+      {/* SECTION 3: AUTHENTICATION (Pinned to Bottom) */}
+      <div className="p-4 border-t border-[#2a2a35]">
+        {user ? (
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center justify-center px-4 py-3 rounded-xl text-sm font-bold text-red-500 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 transition-colors"
+          >
+            <IoLogOut className="mr-2 text-xl" /> 
+            Logout
+          </button>
+        ) : (
+          <Link
+            to="/login"
+            className="w-full flex items-center justify-center px-4 py-3 rounded-xl text-sm font-bold text-teal-400 bg-teal-500/10 hover:bg-teal-500/20 border border-teal-500/20 transition-colors"
+          >
+            <IoLogIn className="mr-2 text-xl" />
+            Login
+          </Link>
+        )}
+      </div>
+    </aside>
+  );
+};
+
+export default Sidebar;
